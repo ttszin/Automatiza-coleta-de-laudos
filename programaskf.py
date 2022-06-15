@@ -136,8 +136,8 @@ def Get_Worksheet():
     #navegador.implicitly_wait(2)
 
     #DESATIVADO PARA TESTES, REATIVAR QUANDO CONSEGUIR MUDAR A DATA
-    #navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[2]/div/button/span[1]').click()   #CLICA PARA EXIBIR A LISTA DETALHADA DE ATIVOS
-    #navegador.implicitly_wait(2)
+    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[2]/div/button/span[1]').click()   #CLICA PARA EXIBIR A LISTA DETALHADA DE ATIVOS
+    navegador.implicitly_wait(2)
     
     #ERRO
     navegador.find_element_by_xpath().click()  #SELECIONA TODOS OS LISTADOS
