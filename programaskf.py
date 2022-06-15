@@ -143,7 +143,7 @@ def Get_Worksheet():
     #WebElement svgObject = navegador.findElement(By.xpath(YOUR XPATH))      #SELECIONA TODOS OS LISTADOS
     #Actions builder = new Actions(driver) 
     #builder.click(svgObject).build().perform() 
-    navegador.FindElement(By.XPath("//span[@class='jss20']")).Click()
+    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div/div/div[1]/div[2]/div[1]/table/thead/tr/th[1]/span').Click()
     #ERRO
     
     navegador.implicitly_wait(2)
