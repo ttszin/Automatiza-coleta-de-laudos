@@ -140,7 +140,7 @@ def Get_Worksheet():
     navegador.implicitly_wait(2)
     
     #ERRO
-    navegador.find_element_by_xpath().click()  #SELECIONA TODOS OS LISTADOS
+    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div/div/div[1]/div[2]/div[1]/table/thead/tr/th[1]/span/span[1]/svg').click()  #SELECIONA TODOS OS LISTADOS
     #ERRO
     
     navegador.implicitly_wait(2)
