@@ -99,12 +99,10 @@ def Get_Worksheet():
     navegador.find_element_by_xpath('//*[@id="Reports"]/span[1]').click()    #CLICA NA CÉLULA RELATÓRIOS
     navegador.implicitly_wait(5) 
     
-    #
-    #PROBLEMA    
+     
     navegador.find_element_by_css_selector("button[class ='MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary']").click()               #FECHA A CAIXA DE SPAM 
     
-    #PROBLEMA
-    #
+    
     
     navegador.implicitly_wait(2)                                               # É UM TIME.SLEEP QUE SE ENCONTRAR O ELEMENTO EXECUTA ANTES
     navegador.find_element_by_xpath('//*[@id="detailedAssetHealth"]').click()                           #CLICA NA CÉLULA SAÚDE DETALHADA DO ATIVO
@@ -139,8 +137,13 @@ def Get_Worksheet():
     navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[2]/div/button/span[1]').click()   #CLICA PARA EXIBIR A LISTA DETALHADA DE ATIVOS
     navegador.implicitly_wait(2)
     
+
+    
     #ERRO
-    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div/div/div[1]/div[2]/div[1]/table/thead/tr/th[1]/span/span[1]/svg').click()  #SELECIONA TODOS OS LISTADOS
+    #WebElement svgObject = navegador.findElement(By.xpath(YOUR XPATH))      #SELECIONA TODOS OS LISTADOS
+    #Actions builder = new Actions(driver) 
+    #builder.click(svgObject).build().perform() 
+    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div/div/div[1]/div[2]/div[1]/table/thead/tr/th[1]/span/span[1]/svg/path').click()
     #ERRO
     
     navegador.implicitly_wait(2)
