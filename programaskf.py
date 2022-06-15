@@ -5,13 +5,14 @@ from selenium import webdriver                              #Importa a bibliotec
 from webdriver_manager.chrome import ChromeDriverManager    #Importa a biblioteca que gerencia automaticamente a versão do chrome e selenium sem precisar instalar
 from selenium.webdriver.chrome.service import Service       #Importa Service 
 from selenium.webdriver import Chrome                       #Importa o Chrome
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait as wait
 import pyautogui                                            #Importa a biblioteca de automação
 import datetime                                             #Importa a biblioteca data atual
 import time                                                 #Importa a biblioteca time
 
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait as wait
 
 
 def OpenWebSite():
@@ -128,8 +129,10 @@ def Get_Worksheet():
     navegador.implicitly_wait(2)
     initial_date_element.clear()
     navegador.implicitly_wait(2)
-    initial_date_element.send_keys('29/04/2020')                                                      #ESCREVER A DATA INICIAL    
-    
+    initial_date_element.send_keys(Keys.CONTROL + "a")                                        #DA UM CONTROL A PARA SELECIONAR TODA A LINHA             
+    initial_date_element.send_keys(Keys.DELETE)                                               #DA UM DELETE E LIMPA A LINHA
+    initial_date_element.send_keys("29/01/2020")                                              #ESCREVER A DATA INICIAL  
+
     #navegador.implicitly_wait(2)
 
     #DESATIVADO PARA TESTES, REATIVAR QUANDO CONSEGUIR MUDAR A DATA
