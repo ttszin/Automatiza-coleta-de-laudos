@@ -125,9 +125,9 @@ def Get_Worksheet():
     #Não usado 
     # final_date_element = navegador.find_elements_by_css_selector(final_date_path)           #ACESSA A CÉLULA DATA FINAL
 
-                                                       
     navegador.implicitly_wait(2)
-    initial_date_element.clear()
+    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[1]/form/div[4]/div[3]/div/div[2]/div/label/span[1]/span[1]/span[1]/input').click()              #DESMARCA A CAIXA DOS CONCLUÍDOS
+
     navegador.implicitly_wait(2)
     initial_date_element.send_keys(Keys.CONTROL + "a")                                        #DA UM CONTROL A PARA SELECIONAR TODA A LINHA             
     initial_date_element.send_keys(Keys.DELETE)                                               #DA UM DELETE E LIMPA A LINHA
