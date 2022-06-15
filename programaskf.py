@@ -133,7 +133,7 @@ def Get_Worksheet():
 
     #navegador.implicitly_wait(2)
 
-    #DESATIVADO PARA TESTES, REATIVAR QUANDO CONSEGUIR MUDAR A DATA
+    
     navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[2]/div/button/span[1]').click()   #CLICA PARA EXIBIR A LISTA DETALHADA DE ATIVOS
     navegador.implicitly_wait(2)
     
@@ -143,7 +143,8 @@ def Get_Worksheet():
     #WebElement svgObject = navegador.findElement(By.xpath(YOUR XPATH))      #SELECIONA TODOS OS LISTADOS
     #Actions builder = new Actions(driver) 
     #builder.click(svgObject).build().perform() 
-    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div/div/div[1]/div[2]/div[1]/table/thead/tr/th[1]/span').Click()
+    navegador.find_elements_by_xpath('//*[@id="panel1a-content"]/div/div/div[1]/div[2]/div[1]/table/thead/tr/th[1]/span/span[1]/svg/path').click
+     
     #ERRO
     
     navegador.implicitly_wait(2)
