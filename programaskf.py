@@ -111,50 +111,51 @@ def Get_Worksheet():
     navegador.implicitly_wait(2)  
     navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[1]/form/div[2]/div[1]/div/select/option[2]').click()  #SELECIONA BUNGE RIO GRANDE
     navegador.implicitly_wait(2)  
-    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[1]/form/div[4]/div[3]/div/div[2]/div/label/span[1]/span[1]/span[1]/input').click #DESMARCA A CAIXA CONCLUÍDOS
+    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[1]/form/div[4]/div[3]/div/div[2]/div/label/span[1]/span[1]/span[2]').click() #DESMARCA A CAIXA CONCLUÍDOS
     navegador.implicitly_wait(2)  
 
-                                                          #VARIÁVEL PARA GUARDAR A CÉLULA DE INSERIR DATA INICIAL 
+    initial_date_path = '#startDate'                                                      #VARIÁVEL PARA GUARDAR A CÉLULA DE INSERIR DATA INICIAL 
+    #final_date_path = '#endDate'                                                         #VARIÁVEL PARA GUARDAR A CÉLULA DE INSERIR DAT'A FINAL
     
-    #Não usado  
-    initial_date_path = '#startDate'                                                            #VARIÁVEL PARA GUARDAR A CÉLULA DE INSERIR DAT'A FINAL
-
     initial_date_element = navegador.find_element_by_css_selector(initial_date_path)
+    #final_date_element = navegador.find_element_by_css_selector(final_date_path)
+                                                         
     #Não usado 
     # final_date_element = navegador.find_elements_by_css_selector(final_date_path)           #ACESSA A CÉLULA DATA FINAL
 
-    navegador.implicitly_wait(2)
-    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[1]/form/div[4]/div[3]/div/div[2]/div/label/span[1]/span[1]/span[1]/input').click()              #DESMARCA A CAIXA DOS CONCLUÍDOS
+
+    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[2]/div/button/span[1]').click()         #CLICA NO LISTA DETALHADA DE ATIVOS
 
     navegador.implicitly_wait(2)
     initial_date_element.send_keys(Keys.CONTROL + "a")                                        #DA UM CONTROL A PARA SELECIONAR TODA A LINHA             
     initial_date_element.send_keys(Keys.DELETE)                                               #DA UM DELETE E LIMPA A LINHA
     initial_date_element.send_keys("29/01/2020")                                              #ESCREVER A DATA INICIAL  
+                                                    
+    
+    #Não usado  
 
-    #navegador.implicitly_wait(2)
+
+    #final_date_element.clear()
+    #final_date_element.send_keys(hoje)                                                        #ESCREVER A DATA FINAL
+    
+    navegador.implicitly_wait(5)
+
+
+
+
 
     
-    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[2]/div/button/span[1]').click()   #CLICA PARA EXIBIR A LISTA DETALHADA DE ATIVOS
-    navegador.implicitly_wait(2)
+    navegador.maximize_window()
+    pyautogui.moveTo(1120,350)
+    pyautogui.click()
+    pyautogui.scroll(+10000)                                                                  #SCROLLA A PÁGINA PRA CIMA
+    pyautogui.moveTo(1120,430)
+    pyautogui.click()
+    time.sleep(2)
     
-
     
-    #ERRO
-    #WebElement svgObject = navegador.findElement(By.xpath(YOUR XPATH))      #SELECIONA TODOS OS LISTADOS
-    #Actions builder = new Actions(driver) 
-    #builder.click(svgObject).build().perform() 
-    navegador.find_elements_by_xpath('//*[@id="panel1a-content"]/div/div/div[1]/div[2]/div[1]/table/thead/tr/th[1]/span/span[1]/svg/path').click
-     
-    #ERRO
-    
-    navegador.implicitly_wait(2)
-    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div/div/div[1]/div[1]/button/span[1]').click()                                  #INSTALA A PLANILHA
-
-    navegador.implicitly_wait(50)                                                                                                                            #TEMPO ENQUANTO INSTALA A PLANILHA
-    
-    final_date_element.clear()
-    final_date_element.send_keys(hoje)                                                        #ESCREVER A DATA FINAL
-
+   
+ 
 
 
 
@@ -186,6 +187,10 @@ def ExtractInformation():
     OpenWebSite()
     Login()
     Get_Worksheet()
+    
+
+   
+
     time.sleep(100)
     
     
