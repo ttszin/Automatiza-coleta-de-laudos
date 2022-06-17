@@ -128,10 +128,8 @@ def Get_Worksheet():
     initial_date_element.send_keys(Keys.DELETE)                                               #DA UM DELETE E LIMPA A LINHA
     initial_date_element.send_keys("29/01/2020")                                              #ESCREVER A DATA INICIAL  
 
-    #ERRO
+    
     navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[1]/form/div[4]/div[3]/div/div[2]/div/label/span[2]').click()   #DESMARCA A CAIXA CONCLUÍDOS
-    #ERRO
-    time.sleep(100)
     navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[2]/div/button/span[1]').click()         #CLICA NO LISTA DETALHADA DE ATIVOS
 
     
@@ -141,17 +139,18 @@ def Get_Worksheet():
     
     navegador.implicitly_wait(30)
 
-
+    navegador.find_element_by_css_selector("button[class='MuiTouchRipple-root']")
 
 
 
     
     navegador.maximize_window()
-    pyautogui.moveTo(1120,350)
-    pyautogui.click()
-    pyautogui.scroll(+10000)                                                                  #SCROLLA A PÁGINA PRA CIMA
-    pyautogui.moveTo(1120,430)
-    pyautogui.click()
+    time.sleep(3)
+    #pyautogui.moveTo(1120,350)
+    #pyautogui.click()
+    #pyautogui.scroll(+10000)                                                                  #SCROLLA A PÁGINA PRA CIMA
+    #pyautogui.moveTo(1120,430)
+    #pyautogui.click()
     time.sleep(2)
     
     
