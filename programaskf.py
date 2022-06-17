@@ -97,22 +97,21 @@ def TreatDate():
 def Get_Worksheet():                                                                                 
     
     navegador.find_element_by_xpath('//*[@id="Reports"]/span[1]').click()    #CLICA NA CÉLULA RELATÓRIOS
-    navegador.implicitly_wait(5) 
+    navegador.implicitly_wait(30) 
     
      
     navegador.find_element_by_css_selector("button[class ='MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary']").click()               #FECHA A CAIXA DE SPAM 
     
     
     
-    navegador.implicitly_wait(2)                                               # É UM TIME.SLEEP QUE SE ENCONTRAR O ELEMENTO EXECUTA ANTES
+    navegador.implicitly_wait(30)                                               # É UM TIME.SLEEP QUE SE ENCONTRAR O ELEMENTO EXECUTA ANTES
     navegador.find_element_by_xpath('//*[@id="detailedAssetHealth"]').click()                           #CLICA NA CÉLULA SAÚDE DETALHADA DO ATIVO
-    navegador.implicitly_wait(2)  
+    navegador.implicitly_wait(30)  
     navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[1]/form/div[2]/div[1]/div/select').click()  #SELECIONA A HIERARQUIA
-    navegador.implicitly_wait(2)  
+    navegador.implicitly_wait(30)  
     navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[1]/form/div[2]/div[1]/div/select/option[2]').click()  #SELECIONA BUNGE RIO GRANDE
-    navegador.implicitly_wait(2)  
-    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[1]/form/div[4]/div[3]/div/div[2]/div/label/span[1]/span[1]/span[2]').click() #DESMARCA A CAIXA CONCLUÍDOS
-    navegador.implicitly_wait(2)  
+    navegador.implicitly_wait(30)  
+    
 
     initial_date_path = '#startDate'                                                      #VARIÁVEL PARA GUARDAR A CÉLULA DE INSERIR DATA INICIAL 
     #final_date_path = '#endDate'                                                         #VARIÁVEL PARA GUARDAR A CÉLULA DE INSERIR DAT'A FINAL
@@ -124,21 +123,23 @@ def Get_Worksheet():
     # final_date_element = navegador.find_elements_by_css_selector(final_date_path)           #ACESSA A CÉLULA DATA FINAL
 
 
-    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[2]/div/button/span[1]').click()         #CLICA NO LISTA DETALHADA DE ATIVOS
-
-    navegador.implicitly_wait(2)
+    navegador.implicitly_wait(30)
     initial_date_element.send_keys(Keys.CONTROL + "a")                                        #DA UM CONTROL A PARA SELECIONAR TODA A LINHA             
     initial_date_element.send_keys(Keys.DELETE)                                               #DA UM DELETE E LIMPA A LINHA
     initial_date_element.send_keys("29/01/2020")                                              #ESCREVER A DATA INICIAL  
-                                                    
-    
-    #Não usado  
 
+    #ERRO
+    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[1]/form/div[4]/div[3]/div/div[2]/div/label/span[2]').click()   #DESMARCA A CAIXA CONCLUÍDOS
+    #ERRO
+    time.sleep(100)
+    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[2]/div/button/span[1]').click()         #CLICA NO LISTA DETALHADA DE ATIVOS
+
+    
 
     #final_date_element.clear()
     #final_date_element.send_keys(hoje)                                                        #ESCREVER A DATA FINAL
     
-    navegador.implicitly_wait(5)
+    navegador.implicitly_wait(30)
 
 
 
