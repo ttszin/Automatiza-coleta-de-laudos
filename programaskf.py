@@ -139,8 +139,8 @@ def Get_Worksheet():
     
     navegador.implicitly_wait(30)
 
-    navegador.find_element_by_css_selector("button[class='MuiTouchRipple-root']")
-
+    navegador.find_element_by_css_selector("svg[class='MuiSvgIcon-root']").click()
+    
 
 
     
