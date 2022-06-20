@@ -199,7 +199,7 @@ def ExtractInformation():
     Login()
     Get_Worksheet()
     
-    detailedAssetHealth
+    # Nome dos arquivos instalados começam com detailedAssetHealth
    
 
     time.sleep(100)
