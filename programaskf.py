@@ -149,7 +149,7 @@ def Get_Worksheet():
 
     
     navegador.implicitly_wait(100)
-    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div/div/div[1]/div[1]/button/span[1]').click()
+    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div/div/div[1]/div[1]/button/span[1]').click()                  #CLICA PARA FAZER O DOWNLOAD
     
     
     navegador.maximize_window()
