@@ -15,7 +15,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 import pyautogui                                            #Importa a biblioteca de automação
 import datetime                                             #Importa a biblioteca data atual
 import time                                                 #Importa a biblioteca time
-
+import os                                                   
 
 
 def OpenWebSite():
@@ -153,11 +153,16 @@ def Get_Worksheet():
     
     
     navegador.maximize_window()
-    time.sleep(3)
+    time.sleep(10)
+     
+    
+     
+     
+     
                                                                   #SCROLLA A PÁGINA PRA CIMA
     #pyautogui.moveTo(1120,430)
     #pyautogui.click()
-    time.sleep(2)
+    
     
     
    
@@ -194,7 +199,7 @@ def ExtractInformation():
     Login()
     Get_Worksheet()
     
-
+    detailedAssetHealth
    
 
     time.sleep(100)
