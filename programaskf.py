@@ -9,6 +9,9 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait as wait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 import pyautogui                                            #Importa a biblioteca de automação
 import datetime                                             #Importa a biblioteca data atual
 import time                                                 #Importa a biblioteca time
@@ -137,18 +140,21 @@ def Get_Worksheet():
     #final_date_element.clear()
     #final_date_element.send_keys(hoje)                                                        #ESCREVER A DATA FINAL
     
-    navegador.implicitly_wait(30)
-
-    navegador.find_element_by_css_selector("svg[class='MuiSvgIcon-root']").click()
     
 
 
+    #pyautogui.moveTo(1120,350)
+    #pyautogui.click()
+    #pyautogui.scroll(+10000)    
+
+    
+    navegador.implicitly_wait(100)
+    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div/div/div[1]/div[1]/button/span[1]').click()
+    
     
     navegador.maximize_window()
     time.sleep(3)
-    #pyautogui.moveTo(1120,350)
-    #pyautogui.click()
-    #pyautogui.scroll(+10000)                                                                  #SCROLLA A PÁGINA PRA CIMA
+                                                                  #SCROLLA A PÁGINA PRA CIMA
     #pyautogui.moveTo(1120,430)
     #pyautogui.click()
     time.sleep(2)
