@@ -1,50 +1,39 @@
 #coding: UTF-8
 
 from platform import python_branch
+from tkinter import Button
 from selenium import webdriver                              #Importa a biblioteca Selenium
 from webdriver_manager.chrome import ChromeDriverManager    #Importa a biblioteca que gerencia automaticamente a versão do chrome e selenium sem precisar instalar
 from selenium.webdriver.chrome.service import Service       #Importa Service 
 from selenium.webdriver import Chrome                       #Importa o Chrome
-import pyautogui                                            #Importa a biblioteca de automação
-import datetime                                             #Importa a biblioteca data atual
-import time                                                 #Importa a biblioteca time
-
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait as wait
-
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+import openpyxl as xl    
+import pandas as pd
+import pyautogui                                            #Importa a biblioteca de automação
+import datetime                                             #Importa a biblioteca data atual
+import time                                                 #Importa a biblioteca time
+import os                                                   
+import glob
+import os.path
 
 def OpenWebSite():
-    global navegador                                                            #Declara navegador como uma variável global (Que pode ser utilizada em outras funções)
-    servico = Service(ChromeDriverManager().install())                          
-    navegador = webdriver.Chrome(service=servico)                               #Abre o navegador
+    global navegador 
+    
+    #ERRO, NÃO ESTÁ TROCANDO O DIRETÓRIO DE DOWNLOAD 
+    chromeOptions = webdriver.ChromeOptions()
+    prefs = {"C://Users/PC/Downloads" : "C://Users/PC/Desktop/SKF/Downloads"}       #Trocando a área de download
+    chromeOptions.add_experimental_option("prefs",prefs)
+    chromedriver = "C://Users/PC/Desktop/SKF/Downloads"                             #Nova área de download 
+    servico = Service(ChromeDriverManager().install())                              #Seta o driver do google automático       
+    navegador = webdriver.Chrome(service=servico,executable_path=chromedriver, options=chromeOptions)                               #Abre o navegador
     navegador.get("https://repcenter.skf.com/machineviewer/logon.aspx")         #Entra no site SKF
     
-    
-
-        
-    '''
-
-
-    #DESATIVADO
-    
-    #ABRIR O SITE COM PYAUTOGUI
-    
-    
-    
-    pyautogui.moveTo(35,5)                                  #Move para a barra de tarefas
-    pyautogui.click()                                       #Clica
-    pyautogui.write("goog", interval=0.25)                  #Digita na barra de tarefas goog
-    time.sleep(1)
-    pyautogui.press("enter")                                #Pressiona ENTER
-    time.sleep(10)
-    pyautogui.moveTo(400,50)            
-    pyautogui.click()                                       #Clica
-    time.sleep(1)
-    pyautogui.write("https://repcenter.skf.com/machineviewer/logon.aspx")     #Digita o site
-    pyautogui.press("enter")            #Pressiona ENTER
-    time.sleep(10)
-    '''
 
 
 def Login():
@@ -63,24 +52,6 @@ def Login():
     navegador.implicitly_wait(25)                                                                     #ESPERA 25 SEGUNDOS
 
 
- 
-
-    
-    
-    
-    '''
-    #FAZENDO LOGIN COM PYAUTOGUI (ANTIGO)
-    pyautogui.moveTo(1000,500)                              #Move para o local do login
-    pyautogui.click()                                       #Clica
-    pyautogui.write("thomaz.silva",interval=0.10)           #Digita o login com intervalo
-    time.sleep(2)
-    pyautogui.press("tab")                                  #Muda para digitar a senha
-    time.sleep(2)
-    pyautogui.write("CXvm.r/$A[$Q>65E",interval=0.10)       #Escreve a senha
-    pyautogui.press("enter")                                #Pressiona ENTER  
-    time.sleep(20)
-    '''
-
 def GetDate():
     global hoje                                                                                         #TORNA HOJE UMA VARIÁVEL GLOBAL
     hoje = datetime.date.today()                                                                        #VARIÁVEL QUE HOJE (CONTÉM A DATA ATUAL)
@@ -94,79 +65,113 @@ def TreatDate():
 
 
 def Get_Worksheet():                                                                                 
+
     navegador.find_element_by_xpath('//*[@id="Reports"]/span[1]').click()    #CLICA NA CÉLULA RELATÓRIOS
-    navegador.implicitly_wait(5) 
+    navegador.implicitly_wait(30) 
     
-    #
-    #PROBLEMA    
+     
     navegador.find_element_by_css_selector("button[class ='MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary']").click()               #FECHA A CAIXA DE SPAM 
     
-    #PROBLEMA
-    #
     
-    navegador.implicitly_wait(2)                                               # É UM TIME.SLEEP QUE SE ENCONTRAR O ELEMENTO EXECUTA ANTES
+    
+    navegador.implicitly_wait(30)                                               # É UM TIME.SLEEP QUE SE ENCONTRAR O ELEMENTO EXECUTA ANTES
     navegador.find_element_by_xpath('//*[@id="detailedAssetHealth"]').click()                           #CLICA NA CÉLULA SAÚDE DETALHADA DO ATIVO
-    navegador.implicitly_wait(2)  
+    navegador.implicitly_wait(30)  
     navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[1]/form/div[2]/div[1]/div/select').click()  #SELECIONA A HIERARQUIA
-    navegador.implicitly_wait(2)  
+    navegador.implicitly_wait(30)  
     navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[1]/form/div[2]/div[1]/div/select/option[2]').click()  #SELECIONA BUNGE RIO GRANDE
-    navegador.implicitly_wait(2)  
-    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[1]/form/div[4]/div[3]/div/div[2]/div/label/span[1]/span[1]/span[1]/input').click #DESMARCA A CAIXA CONCLUÍDOS
-    navegador.implicitly_wait(2)  
-
-                                                          #VARIÁVEL PARA GUARDAR A CÉLULA DE INSERIR DATA INICIAL 
+    navegador.implicitly_wait(30)  
     
-    #Não usado
-    #final_date_path = '#endDate'                                                            #VARIÁVEL PARA GUARDAR A CÉLULA DE INSERIR DATA FINAL
 
-    initial_date_element = navegador.find_element_by_id('startDate')      #ACESSA A CÉLULA DATA INICIAL
+    initial_date_path = '#startDate'                                                      #VARIÁVEL PARA GUARDAR A CÉLULA DE INSERIR DATA INICIAL 
+    #final_date_path = '#endDate'                                                         #VARIÁVEL PARA GUARDAR A CÉLULA DE INSERIR DAT'A FINAL
     
+    initial_date_element = navegador.find_element_by_css_selector(initial_date_path)
+    #final_date_element = navegador.find_element_by_css_selector(final_date_path)
+                                                         
     #Não usado 
     # final_date_element = navegador.find_elements_by_css_selector(final_date_path)           #ACESSA A CÉLULA DATA FINAL
 
-    initial_date_element.clear()                                                          #LIMPA A CÉLULAR PARA ESCREVER UMA NOVA DATA
-    navegador.implicitly_wait(2)
-    initial_date_element.send_keys("29/04/2020")                                                      #ESCREVER A DATA INICIAL    
-    navegador.implicitly_wait(2)
 
-    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[2]/div/button/span[1]').click()   #CLICA PARA EXIBIR A LISTA DETALHADA DE ATIVOS
-    navegador.implicitly_wait(2)
+    navegador.implicitly_wait(30)
+    initial_date_element.send_keys(Keys.CONTROL + "a")                                        #DA UM CONTROL A PARA SELECIONAR TODA A LINHA             
+    initial_date_element.send_keys(Keys.DELETE)                                               #DA UM DELETE E LIMPA A LINHA
+    initial_date_element.send_keys("29/01/2020")                                              #ESCREVER A DATA INICIAL  
+
     
-    #ERRO
-->  navegador.find_element_by_class_name('jss20').click()  #SELECIONA TODOS OS LISTADOS
-    #ERRO
+    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[1]/form/div[4]/div[3]/div/div[2]/div/label/span[2]').click()   #DESMARCA A CAIXA CONCLUÍDOS
+    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[2]/div/button/span[1]').click()         #CLICA NO LISTA DETALHADA DE ATIVOS
+
     
-    navegador.implicitly_wait(2)
-    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div/div/div[1]/div[1]/button/span[1]').click()                                  #INSTALA A PLANILHA
-
-    navegador.implicitly_wait(50)                                                                                                                            #TEMPO ENQUANTO INSTALA A PLANILHA
+    navegador.implicitly_wait(100)
+    navegador.maximize_window()
+    navegador.implicitly_wait(100)
+    navegador.execute_script("window.scrollTo(0, -250)")                                            #Scrolla a página para funcionar o click no botão
+    time.sleep(15)
+    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div/div/div[1]/div[1]/button/span[1]').click()          #Clica nobotão para efetuar o download
     
-    final_date_element.clear()
-    final_date_element.send_keys(hoje)                                                        #ESCREVER A DATA FINAL
+    
+    
+    
+    time.sleep(10)
+    
+
+def Spreadsheet_Exchange():
+    
+    #CONFERE O NOME DO ÚLTIMO ARQUIVO FEITO O DOWNLOAD DO ESTILO .xlsx
+    caminho = "C://Users/matts/Downloads"
+    lista_arquivos = os.listdir(caminho)
+    lista_datas = []
+
+    for arquivo in lista_arquivos:
+        # descobrir a data desse arquivo
+        if ".xlsx" in arquivo:
+            data = os.path.getmtime(f"{caminho}/{arquivo}")
+            lista_datas.append((data, arquivo))
+        
+        # data inicial = 01/01/2021
+        # data1 = 02/01/2021 -> 10.000
+        # data2 = 15/02/2021 -> 150.000
+        
+    lista_datas.sort(reverse=True)
+    ultimo_arquivo = lista_datas[0]
+    print(ultimo_arquivo[1])
 
 
+    #######################################################################################################################
 
+    
+    filename = ("C:\\Users\\matts\\Downloads\\"+(ultimo_arquivo[1]))
+    wb1 = xl.load_workbook(filename) 
+    ws1 = wb1.worksheets[0] 
+    filename1 ="E:\\OneDrive - BUNGE\\Planejamento e Controle de Manutenção\\00. Confiabilidade\\05. Manutenção Preditiva - Vibração\\Laudos MHV.xlsx"
+    wb2 = xl.load_workbook(filename1) 
+    ws2 = wb2.active 
+    mr = ws1.max_row 
+    mc = ws1.max_column 
+    for i in range (1, mr + 300): 
+        for j in range (1, mc + 1): 
+            c = ws1.cell(row = i, column = j) 
+            ws2.cell(row = i, column = j).value = c.value 
+    wb2.save(str(filename1)) 
+    
+    #--------------------------FAZ A CÓPIA DOS DADOS PARA OUTRA PLANILHA ------------------------------
+    '''
+    filename = (arquivo)
+    wb1 = xl.load_workbook(filename) 
+    ws1 = wb1.worksheets[0] 
+    filename1 = "C:\\Users\\PC\\Desktop\\planilhateste.xlsx"
+    wb2 = xl.load_workbook(filename1) 
+    ws2 = wb2.active 
+    mr = ws1.max_row 
+    mc = ws1.max_column 
+    for i in range (1, mr + 1): 
+        for j in range (1, mc + 1): 
+            c = ws1.cell(row = i, column = j) 
+            ws2.cell(row = i, column = j).value = c.value 
+            wb2.save(str(filename1)) 
 
     '''
-    #EXTRAIR COM PYAUTOGUI(ANTIGO)
-    pyautogui.moveTo(100,350)                               #Move para a aba relatórios
-    pyautogui.click()                                       #Clica
-    time.sleep(1)
-    pyautogui.moveTo(480,180)                               #Seleciona a aba Saúde detalhada do ativo
-    pyautogui.click()                                       #Clica
-    time.sleep(1)
-    
-    pyautogui.moveTo(500,450)                               #Seleciona a caixa
-    pyautogui.click()                                       #Clica
-    time.sleep(1)
-    pyautogui.moveTo(500,500)                               #Seleciona a Bunge
-    pyautogui.click()                                       #Clica
-    
-    pyautogui.moveTo(1340,680)                              #Seleciona a última caixa
-    pyautogui.click()                                       #Clica
-    '''
-    
-
 
 
 def ExtractInformation():
@@ -175,8 +180,11 @@ def ExtractInformation():
     OpenWebSite()
     Login()
     Get_Worksheet()
-    time.sleep(100)
+    Spreadsheet_Exchange()
+
     
+    # Nome dos arquivos instalados começam com detailedAssetHealth
+   
     
 
 
