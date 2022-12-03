@@ -226,12 +226,24 @@ def get_latest_file_path(path):
 
 
 def Spreadsheet_Exchange():
-    downloads_path = get_download_path()
-    latest_file_path = get_latest_file_path(downloads_path)
     
-    with open(latest_file_path, 'r') as file:
-        pass
-        print(latest_file_path)
+    caminho = "C://Users/matts/Downloads"
+    lista_arquivos = os.listdir(caminho)
+    lista_datas = []
+
+    for arquivo in lista_arquivos:
+        # descobrir a data desse arquivo
+        if ".xlsx" in arquivo:
+            data = os.path.getmtime(f"{caminho}/{arquivo}")
+            lista_datas.append((data, arquivo))
+        
+        # data inicial = 01/01/2021
+        # data1 = 02/01/2021 -> 10.000
+        # data2 = 15/02/2021 -> 150.000
+        
+    lista_datas.sort(reverse=True)
+    ultimo_arquivo = lista_datas[0]
+    print(ultimo_arquivo[1])
     '''
     #Filtrando o último arquivo excel adicionado na pasta downloads 
     pasta = "C:/Users/PC/Downloads"
@@ -271,21 +283,21 @@ def Spreadsheet_Exchange():
 
     #######################################################################################################################
 
-    '''
-    filename = ("C:\\Users\\PC\\Desktop\\SKF\\Downloads\\"+(NomeDoArquivo))
+    
+    filename = ("C:\\Users\\matts\\Downloads\\"+(ultimo_arquivo[1]))
     wb1 = xl.load_workbook(filename) 
     ws1 = wb1.worksheets[0] 
-    filename1 ="C:\\Users\\PC\\Desktop\\planilhateste.xlsx"
+    filename1 ="C:\\Users\\matts\\Desktop\\planilhateste.xlsx"
     wb2 = xl.load_workbook(filename1) 
     ws2 = wb2.active 
     mr = ws1.max_row 
     mc = ws1.max_column 
-    for i in range (1, mr + 1): 
+    for i in range (1, mr + 300): 
         for j in range (1, mc + 1): 
             c = ws1.cell(row = i, column = j) 
             ws2.cell(row = i, column = j).value = c.value 
     wb2.save(str(filename1)) 
-    '''
+    
 
 
 
@@ -325,21 +337,16 @@ def Spreadsheet_Exchange():
 
 
 def ExtractInformation():
-    '''
     GetDate()
     TreatDate()
     OpenWebSite()
     Login()
     Get_Worksheet()
-    '''
     Spreadsheet_Exchange()
 
     
     # Nome dos arquivos instalados começam com detailedAssetHealth
    
-
-    time.sleep(100)
-    
     
 
 
