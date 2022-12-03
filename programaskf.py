@@ -32,9 +32,8 @@ def OpenWebSite():
     chromedriver = "C://Users/PC/Desktop/SKF/Downloads"                             #Nova área de download 
     servico = Service(ChromeDriverManager().install())                              #Seta o driver do google automático       
     navegador = webdriver.Chrome(service=servico,executable_path=chromedriver, options=chromeOptions)                               #Abre o navegador
-    navegador.get("https://repcenter.skf.com/machineviewer/logon.aspx")         #Entra no site SKF
-    
-
+    navegador.get("https://repcenter.skf.com/machineviewer/logon.aspx")             #Entra no site SKF  
+    navegador.AddArgument("--headless")                                             #Esconde o navegador gerado na tela do usuário
 
 def Login():
     
