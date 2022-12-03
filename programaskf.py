@@ -1,6 +1,7 @@
 #coding: UTF-8
 
 from platform import python_branch
+from tkinter import Button
 from selenium import webdriver                              #Importa a biblioteca Selenium
 from webdriver_manager.chrome import ChromeDriverManager    #Importa a biblioteca que gerencia automaticamente a versão do chrome e selenium sem precisar instalar
 from selenium.webdriver.chrome.service import Service       #Importa Service 
@@ -12,16 +13,25 @@ from selenium.webdriver.support.ui import WebDriverWait as wait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+import openpyxl as xl    
+import pandas as pd
 import pyautogui                                            #Importa a biblioteca de automação
 import datetime                                             #Importa a biblioteca data atual
 import time                                                 #Importa a biblioteca time
 import os                                                   
-
+import glob
+import os.path
 
 def OpenWebSite():
-    global navegador                                                            #Declara navegador como uma variável global (Que pode ser utilizada em outras funções)
-    servico = Service(ChromeDriverManager().install())                          
-    navegador = webdriver.Chrome(service=servico)                               #Abre o navegador
+    global navegador 
+    
+    #ERRO, NÃO ESTÁ TROCANDO O DIRETÓRIO DE DOWNLOAD 
+    chromeOptions = webdriver.ChromeOptions()
+    prefs = {"C://Users/PC/Downloads" : "C://Users/PC/Desktop/SKF/Downloads"}       #Trocando a área de download
+    chromeOptions.add_experimental_option("prefs",prefs)
+    chromedriver = "C://Users/PC/Desktop/SKF/Downloads"                             #Nova área de download 
+    servico = Service(ChromeDriverManager().install())                              #Seta o driver do google automático       
+    navegador = webdriver.Chrome(service=servico,executable_path=chromedriver, options=chromeOptions)                               #Abre o navegador
     navegador.get("https://repcenter.skf.com/machineviewer/logon.aspx")         #Entra no site SKF
     
     
@@ -98,7 +108,7 @@ def TreatDate():
 
 
 def Get_Worksheet():                                                                                 
-    
+
     navegador.find_element_by_xpath('//*[@id="Reports"]/span[1]').click()    #CLICA NA CÉLULA RELATÓRIOS
     navegador.implicitly_wait(30) 
     
@@ -149,10 +159,15 @@ def Get_Worksheet():
 
     
     navegador.implicitly_wait(100)
-    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div/div/div[1]/div[1]/button/span[1]').click()                  #CLICA PARA FAZER O DOWNLOAD
-    
-    
     navegador.maximize_window()
+    navegador.implicitly_wait(100)
+    navegador.execute_script("window.scrollTo(0, -250)")                                            #Scrolla a página para funcionar o click no botão
+    time.sleep(15)
+    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div/div/div[1]/div[1]/button/span[1]').click()          #Clica nobotão para efetuar o download
+    
+    
+    
+    
     time.sleep(10)
      
     
@@ -190,14 +205,135 @@ def Get_Worksheet():
     '''
     
 
+def get_download_path():
+    """Returns the default downloads path for linux or windows"""
+    if os.name == 'nt':
+        import winreg
+        sub_key = r'SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders'
+        downloads_guid = '{374DE290-123F-4565-9164-39C4925E467B}'
+        with winreg.OpenKey(winreg.HKEY_CURRENT_USER, sub_key) as key:
+            location = winreg.QueryValueEx(key, downloads_guid)[0]
+        return location
+    return os.path.join(os.path.expanduser('~'), 'downloads')
+
+def get_latest_file_path(path):
+    """return the more recent file in a path"""
+
+    file_paths = glob.glob(f'{path}/*') # obtem o path de cada arquivo na pasta
+    all_files_modification_time = [ os.path.getmtime(path) for path in file_paths ] # Obtem o modification time de cada arquivo
+    latest_file_index = all_files_modification_time.index(max(all_files_modification_time)) # obtem o index do maior deles, o arquivo mais recente
+    return file_paths[latest_file_index]
+
+
+def Spreadsheet_Exchange():
+    downloads_path = get_download_path()
+    latest_file_path = get_latest_file_path(downloads_path)
+    
+    with open(latest_file_path, 'r') as file:
+        pass
+        print(latest_file_path)
+    '''
+    #Filtrando o último arquivo excel adicionado na pasta downloads 
+    pasta = "C:/Users/PC/Downloads"
+
+    file_type = '\*xlsx'# se nao quiser filtrar por extenção deixe apenas *
+    files = glob.glob(pasta + file_type)
+    max_file = max(files, key=os.path.getctime) 
+    for element in range(0, len(max_file)):
+        print(string_name[element])
+        
+    '''
+        
+    #DESCOBRIR A DATA DO ARQUIVO
+
+    ########################################################################################################################
+
+
+    #Pegando o último arquivo instalado na pasta
+
+    #data = os.path.getmtime(f"{pasta}/{arquivo}")
+        
+
+    '''
+    lista_datas.sort(reverse=True)
+    ultimo_arquivo = lista_datas[0]
+    NomeDoArquivo = ultimo_arquivo[1]
+    print(ultimo_arquivo[1])
+    '''
+    ########################################################################################################################
+
+
+
+
+
+    #dados_planilha1 = pd.read_excel("C://Users/PC/Desktop/SKF/Downloads/"+(NomeDoArquivo))       # PEGA OS DADOS DA PLANILHA PARA TRATAMENTO DE DADOS
+
+
+    #######################################################################################################################
+
+    '''
+    filename = ("C:\\Users\\PC\\Desktop\\SKF\\Downloads\\"+(NomeDoArquivo))
+    wb1 = xl.load_workbook(filename) 
+    ws1 = wb1.worksheets[0] 
+    filename1 ="C:\\Users\\PC\\Desktop\\planilhateste.xlsx"
+    wb2 = xl.load_workbook(filename1) 
+    ws2 = wb2.active 
+    mr = ws1.max_row 
+    mc = ws1.max_column 
+    for i in range (1, mr + 1): 
+        for j in range (1, mc + 1): 
+            c = ws1.cell(row = i, column = j) 
+            ws2.cell(row = i, column = j).value = c.value 
+    wb2.save(str(filename1)) 
+    '''
+
+
+
+
+
+    #pyautogui.click(10,10)
+    #time.sleep(2)
+    #pyautogui.write('detailed')
+    #time.sleep(2)
+    #pyautogui.press('enter')
+    #time.sleep(2)
+    #pyautogui.press('left')
+    #time.sleep(2)
+    #pyautogui.press('enter')
+    #time.sleep(2)
+    #pyautogui.press('enter')
+    #time.sleep(2)
+
+
+    #--------------------------FAZ A CÓPIA DOS DADOS PARA OUTRA PLANILHA ------------------------------
+    '''
+    filename = (arquivo)
+    wb1 = xl.load_workbook(filename) 
+    ws1 = wb1.worksheets[0] 
+    filename1 = "C:\\Users\\PC\\Desktop\\planilhateste.xlsx"
+    wb2 = xl.load_workbook(filename1) 
+    ws2 = wb2.active 
+    mr = ws1.max_row 
+    mc = ws1.max_column 
+    for i in range (1, mr + 1): 
+        for j in range (1, mc + 1): 
+            c = ws1.cell(row = i, column = j) 
+            ws2.cell(row = i, column = j).value = c.value 
+            wb2.save(str(filename1)) 
+
+    '''
 
 
 def ExtractInformation():
+    '''
     GetDate()
     TreatDate()
     OpenWebSite()
     Login()
     Get_Worksheet()
+    '''
+    Spreadsheet_Exchange()
+
     
     # Nome dos arquivos instalados começam com detailedAssetHealth
    
