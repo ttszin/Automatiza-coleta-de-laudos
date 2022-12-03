@@ -287,7 +287,7 @@ def Spreadsheet_Exchange():
     filename = ("C:\\Users\\matts\\Downloads\\"+(ultimo_arquivo[1]))
     wb1 = xl.load_workbook(filename) 
     ws1 = wb1.worksheets[0] 
-    filename1 ="C:\\Users\\matts\\Desktop\\planilhateste.xlsx"
+    filename1 ="E:\\OneDrive - BUNGE\\Planejamento e Controle de Manutenção\\00. Confiabilidade\\05. Manutenção Preditiva - Vibração\\Laudos MHV.xlsx"
     wb2 = xl.load_workbook(filename1) 
     ws2 = wb2.active 
     mr = ws1.max_row 
