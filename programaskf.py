@@ -24,9 +24,14 @@ import os.path
 
 def OpenWebSite():
     global navegador 
-    #ERRO, NÃO ESTÁ TROCANDO O DIRETÓRIO DE DOWNLOAD       
-    navegador = webdriver.Chrome("C:/Users/PC/Desktop/Teste automatização/SKF/driver/chromedriver.exe")                               #Abre o navegador
-    navegador.get("https://repcenter.skf.com/machineviewer/logon.aspx")         #Entra no site SKF
+    #ERRO, NÃO ESTÁ TROCANDO O DIRETÓRIO DE DOWNLOAD 
+    chromeOptions = webdriver.ChromeOptions()
+    prefs = {"C://Users/PC/Downloads" : "C://Users/PC/Desktop/SKF/Downloads"}       #Trocando a área de download
+    chromeOptions.add_experimental_option("prefs",prefs)
+    chromedriver = "C://Users/PC/Desktop/SKF/Downloads"                             #Nova área de download 
+    servico = Service(ChromeDriverManager().install())                              #Seta o driver do google automático       
+    navegador = webdriver.Chrome(service=servico,executable_path=chromedriver, options=chromeOptions)                               #Abre o navegador
+    navegador.get("https://repcenter.skf.com/machineviewer/logon.aspx")             #Entra no site SKF  
     
     
 
