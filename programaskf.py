@@ -13,6 +13,8 @@ from selenium.webdriver.support.ui import WebDriverWait as wait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 import openpyxl as xl    
 import pandas as pd
 import pyautogui                                            #Importa a biblioteca de automação
@@ -25,12 +27,8 @@ import os.path
 def OpenWebSite():
     global navegador 
     #ERRO, NÃO ESTÁ TROCANDO O DIRETÓRIO DE DOWNLOAD 
-    chromeOptions = webdriver.ChromeOptions()
-    prefs = {"C://Users/PC/Downloads" : "C://Users/PC/Desktop/SKF/Downloads"}       #Trocando a área de download
-    chromeOptions.add_experimental_option("prefs",prefs)
-    chromedriver = "C://Users/PC/Desktop/SKF/Downloads"                             #Nova área de download 
     servico = Service(ChromeDriverManager().install())                              #Seta o driver do google automático       
-    navegador = webdriver.Chrome(service=servico,executable_path=chromedriver, options=chromeOptions)                               #Abre o navegador
+    navegador = webdriver.Chrome(service=servico)                               #Abre o navegador
     navegador.get("https://repcenter.skf.com/machineviewer/logon.aspx")             #Entra no site SKF  
     
     
@@ -345,5 +343,9 @@ def ExtractInformation():
     print('Concluído')
     
     # Nome dos arquivos instalados começam com detailedAssetHealth
+   
+    
+
+
 
 ExtractInformation()
