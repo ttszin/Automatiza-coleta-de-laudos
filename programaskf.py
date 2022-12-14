@@ -24,14 +24,8 @@ import os.path
 
 def OpenWebSite():
     global navegador 
-    
-    #ERRO, NÃO ESTÁ TROCANDO O DIRETÓRIO DE DOWNLOAD 
-    chromeOptions = webdriver.ChromeOptions()
-    prefs = {"C://Users/PC/Downloads" : "C://Users/PC/Desktop/SKF/Downloads"}       #Trocando a área de download
-    chromeOptions.add_experimental_option("prefs",prefs)
-    chromedriver = "C://Users/PC/Desktop/SKF/Downloads"                             #Nova área de download 
-    servico = Service(ChromeDriverManager().install())                              #Seta o driver do google automático       
-    navegador = webdriver.Chrome(service=servico,executable_path=chromedriver, options=chromeOptions)                               #Abre o navegador
+    #ERRO, NÃO ESTÁ TROCANDO O DIRETÓRIO DE DOWNLOAD       
+    navegador = webdriver.Chrome("C:/Users/PC/Desktop/Teste automatização/SKF/driver/chromedriver.exe")                               #Abre o navegador
     navegador.get("https://repcenter.skf.com/machineviewer/logon.aspx")         #Entra no site SKF
     
     
@@ -227,7 +221,7 @@ def get_latest_file_path(path):
 
 def Spreadsheet_Exchange():
     
-    caminho = "C://Users/matts/Downloads"
+    caminho = "C://Users/PC/Downloads"
     lista_arquivos = os.listdir(caminho)
     lista_datas = []
 
@@ -284,10 +278,10 @@ def Spreadsheet_Exchange():
     #######################################################################################################################
 
     
-    filename = ("C:\\Users\\matts\\Downloads\\"+(ultimo_arquivo[1]))
+    filename = ("C:\\Users\\PC\\Downloads\\"+(ultimo_arquivo[1]))
     wb1 = xl.load_workbook(filename) 
     ws1 = wb1.worksheets[0] 
-    filename1 ="E:\\OneDrive - BUNGE\\Planejamento e Controle de Manutenção\\00. Confiabilidade\\05. Manutenção Preditiva - Vibração\\Laudos MHV.xlsx"
+    filename1 ="C:\\Users\\PC\\OneDrive - BUNGE\\Planejamento e Controle de Manutenção\\00. Confiabilidade\\05. Manutenção Preditiva - Vibração\\Laudos MHV.xlsx"
     wb2 = xl.load_workbook(filename1) 
     ws2 = wb2.active 
     mr = ws1.max_row 
@@ -343,12 +337,8 @@ def ExtractInformation():
     Login()
     Get_Worksheet()
     Spreadsheet_Exchange()
-
+    print('Concluído')
     
     # Nome dos arquivos instalados começam com detailedAssetHealth
-   
-    
-
-
 
 ExtractInformation()
