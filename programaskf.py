@@ -31,22 +31,22 @@ def OpenWebSite():
     chromeOptions.add_experimental_option("prefs",prefs)
     chromedriver = "C://Users/PC/Desktop/SKF/Downloads"                             #Nova área de download 
     servico = Service(ChromeDriverManager().install())                              #Seta o driver do google automático       
-    navegador = webdriver.Chrome(service=servico,executable_path=chromedriver, options=chromeOptions)                               #Abre o navegador
+    navegador = webdriver.Chrome(service=servico)                               #Abre o navegador
     navegador.get("https://repcenter.skf.com/machineviewer/logon.aspx")             #Entra no site SKF  
-    navegador.AddArgument("--headless")                                             #Esconde o navegador gerado na tela do usuário
+    #navegador.AddArgument("--headless")                                             #Esconde o navegador gerado na tela do usuário
 
 def Login():
     
     login_path = '#identif_UserName'                                                    #VARIÁVEL PARA GUARDAR A CÉLULA DO LOGIN
     password_path = '#identif_Password'                                                 #VARIÁVEL PARA GUARDAR A CÉLULA DA SENHA
 
-    login_element = navegador.find_element_by_css_selector(login_path)                  #ACESSA A CÉLULA DO LOGIN
-    password_element = navegador.find_element_by_css_selector(password_path)            #ACESSA A CÉLULA DA SENHA
+    login_element = navegador.find_element(By.CSS_SELECTOR,login_path)                  #ACESSA A CÉLULA DO LOGIN
+    password_element = navegador.find_element(By.CSS_SELECTOR,password_path)            #ACESSA A CÉLULA DA SENHA
 
     login_element.send_keys('thomaz.silva')                                             #DIGITA O LOGIN
     password_element.send_keys('CXvm.r/$A[$Q>65E')                                      #DIGITA A SENHA
     
-    navegador.find_element_by_xpath('//*[@id="identif_LoginButton"]').click()           #CLICA PARA LOGAR
+    navegador.find_element(By.XPATH,'//*[@id="identif_LoginButton"]').click()           #CLICA PARA LOGAR
     
     navegador.implicitly_wait(25)                                                                     #ESPERA 25 SEGUNDOS
 
@@ -65,27 +65,27 @@ def TreatDate():
 
 def Get_Worksheet():                                                                                 
 
-    navegador.find_element_by_xpath('//*[@id="Reports"]/span[1]').click()    #CLICA NA CÉLULA RELATÓRIOS
+    navegador.find_element(By.XPATH,'//*[@id="Reports"]/span[1]').click()    #CLICA NA CÉLULA RELATÓRIOS
     navegador.implicitly_wait(30) 
     
      
-    navegador.find_element_by_css_selector("button[class ='MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary']").click()               #FECHA A CAIXA DE SPAM 
+    navegador.find_element(By.CSS_SELECTOR,"button[class ='MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary']").click()               #FECHA A CAIXA DE SPAM 
     
     
     
     navegador.implicitly_wait(30)                                               # É UM TIME.SLEEP QUE SE ENCONTRAR O ELEMENTO EXECUTA ANTES
-    navegador.find_element_by_xpath('//*[@id="detailedAssetHealth"]').click()                           #CLICA NA CÉLULA SAÚDE DETALHADA DO ATIVO
+    navegador.find_element(By.XPATH,'//*[@id="detailedAssetHealth"]').click()                           #CLICA NA CÉLULA SAÚDE DETALHADA DO ATIVO
     navegador.implicitly_wait(30)  
-    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[1]/form/div[2]/div[1]/div/select').click()  #SELECIONA A HIERARQUIA
+    navegador.find_element(By.XPATH,'//*[@id="panel1a-content"]/div[1]/form/div[2]/div[1]/div/select').click()  #SELECIONA A HIERARQUIA
     navegador.implicitly_wait(30)  
-    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[1]/form/div[2]/div[1]/div/select/option[2]').click()  #SELECIONA BUNGE RIO GRANDE
+    navegador.find_element(By.XPATH,'//*[@id="panel1a-content"]/div[1]/form/div[2]/div[1]/div/select/option[2]').click()  #SELECIONA BUNGE RIO GRANDE
     navegador.implicitly_wait(30)  
     
 
     initial_date_path = '#startDate'                                                      #VARIÁVEL PARA GUARDAR A CÉLULA DE INSERIR DATA INICIAL 
     #final_date_path = '#endDate'                                                         #VARIÁVEL PARA GUARDAR A CÉLULA DE INSERIR DAT'A FINAL
     
-    initial_date_element = navegador.find_element_by_css_selector(initial_date_path)
+    initial_date_element = navegador.find_element(By.CSS_SELECTOR,initial_date_path)
     #final_date_element = navegador.find_element_by_css_selector(final_date_path)
                                                          
     #Não usado 
@@ -98,8 +98,8 @@ def Get_Worksheet():
     initial_date_element.send_keys("29/01/2020")                                              #ESCREVER A DATA INICIAL  
 
     
-    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[1]/form/div[4]/div[3]/div/div[2]/div/label/span[2]').click()   #DESMARCA A CAIXA CONCLUÍDOS
-    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div[2]/div/button/span[1]').click()         #CLICA NO LISTA DETALHADA DE ATIVOS
+    navegador.find_element(By.XPATH,'//*[@id="panel1a-content"]/div[1]/form/div[4]/div[3]/div/div[2]/div/label/span[2]').click()   #DESMARCA A CAIXA CONCLUÍDOS
+    navegador.find_element(By.XPATH,'//*[@id="panel1a-content"]/div[2]/div/button/span[1]').click()         #CLICA NO LISTA DETALHADA DE ATIVOS
 
     
     navegador.implicitly_wait(100)
@@ -107,7 +107,7 @@ def Get_Worksheet():
     navegador.implicitly_wait(100)
     navegador.execute_script("window.scrollTo(0, -250)")                                            #Scrolla a página para funcionar o click no botão
     time.sleep(15)
-    navegador.find_element_by_xpath('//*[@id="panel1a-content"]/div/div/div[1]/div[1]/button/span[1]').click()          #Clica nobotão para efetuar o download
+    navegador.find_element(By.XPATH,'//*[@id="panel1a-content"]/div/div/div[1]/div[1]/button/span[1]').click()          #Clica nobotão para efetuar o download
     
     
     
